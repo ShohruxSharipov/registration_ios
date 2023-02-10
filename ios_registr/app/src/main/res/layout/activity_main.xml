@@ -58,6 +58,7 @@
         app:startIconDrawable="@drawable/personcircle">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#32000000"
@@ -80,6 +81,7 @@
         app:startIconDrawable="@drawable/envelope_fill">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#32000000"
@@ -102,6 +104,7 @@
         app:startIconDrawable="@drawable/lock_fill">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#32000000"
@@ -109,7 +112,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/materialButton"
+        android:id="@+id/create"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginStart="18dp"
@@ -135,5 +138,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialButton" />
+        app:layout_constraintTop_toBottomOf="@+id/create" />
 </androidx.constraintlayout.widget.ConstraintLayout>
