@@ -3,6 +3,7 @@ package com.example.ios_registr
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Layout
 import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -29,6 +30,8 @@ class Test : AppCompatActivity() {
     lateinit var card: CardView
     lateinit var again: ImageButton
     lateinit var correcans: TextView
+    lateinit var linear:View
+    var status = true
     var list = mutableListOf<test>()
 
     @SuppressLint("MissingInflatedId", "SetTextI18n")
@@ -44,9 +47,10 @@ class Test : AppCompatActivity() {
         prev = findViewById(R.id.previus)
         group = findViewById(R.id.radioGroup)
         finish = findViewById(R.id.finish)
-        card = findViewById(R.id.card)
+        card = findViewById(R.id.card2)
         again = findViewById(R.id.restart)
         correcans = findViewById(R.id.correctans)
+        linear = findViewById(R.id.liner)
         var index = 0
         list.add(test("1∙1", "1", "2", "3", "4", "", "1"))
         list.add(test("2∙2", "12", "4", "9", "13", "", "4"))
@@ -59,9 +63,11 @@ class Test : AppCompatActivity() {
             var a = AnimationUtils.loadAnimation(this, R.anim.anim)
             card.startAnimation(a)
             card.visibility = View.VISIBLE
+            gameover()
             correcans.text = correcans.text.toString() + finishing().toString()
         }
         again.setOnClickListener {
+            gameover()
             for (i in list) {
                 i.choosen = ""
             }
@@ -75,6 +81,7 @@ class Test : AppCompatActivity() {
             group.clearCheck()
             index = 0
             createTest(index)
+            card.isEnabled = true
         }
         answer1.setOnClickListener {
             var a = findViewById<RadioButton>(group.checkedRadioButtonId)
@@ -120,6 +127,9 @@ class Test : AppCompatActivity() {
                 createTest(index)
             }
             check(index)
+            if (index == 0) {
+                prev.visibility = View.INVISIBLE
+            }
 
         }
     }
@@ -162,5 +172,27 @@ class Test : AppCompatActivity() {
             }
         }
         return correctans
+    }
+    fun gameover(){
+        if (status) {
+            finish.isEnabled = false
+            prev.isEnabled = false
+            group.isEnabled = false
+            status = false
+        }else{
+            finish.isEnabled = true
+            prev.isEnabled = true
+            group.isEnabled = true
+            status = true
+        }
+    }
+    fun createButton(view: View?){
+        for (i in list.indices-1){
+            var btn:Button = findViewById(view!!.id)
+            btn.text = (i+1).toString()
+
+
+        }
+
     }
 }
