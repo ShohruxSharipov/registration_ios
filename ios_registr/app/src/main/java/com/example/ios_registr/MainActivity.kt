@@ -1,5 +1,6 @@
 package com.example.ios_registr
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,6 +17,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var email: EditText
     lateinit var passw: EditText
     lateinit var create: Button
+
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

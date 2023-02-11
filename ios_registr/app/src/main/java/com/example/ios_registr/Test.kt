@@ -24,8 +24,8 @@ class Test : AppCompatActivity() {
     lateinit var answer3: RadioButton
     lateinit var answer4: RadioButton
     lateinit var finish: Button
-    lateinit var next: ImageButton
-    lateinit var prev: ImageButton
+    lateinit var next: Button
+    lateinit var prev: Button
     lateinit var card: CardView
     lateinit var again: ImageButton
     lateinit var correcans: TextView
@@ -69,6 +69,8 @@ class Test : AppCompatActivity() {
             card.startAnimation(a)
             card.visibility = View.INVISIBLE
             finish.visibility = View.INVISIBLE
+            next.visibility = View.VISIBLE
+            prev.visibility = View.INVISIBLE
             correcans.text = correcans.text.dropLast(1)
             group.clearCheck()
             index = 0
@@ -101,14 +103,17 @@ class Test : AppCompatActivity() {
                 createTest(index)
                 if (index == list.size - 1) {
                     finish.visibility = View.VISIBLE
+                    next.visibility = View.INVISIBLE
                 }
             }
+            prev.visibility = View.VISIBLE
             check(index)
 
 
         }
         prev.setOnClickListener {
             finish.visibility = View.INVISIBLE
+            next.visibility = View.VISIBLE
             group.clearCheck()
             if (index < list.size && index != 0) {
                 index--
