@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Layout
 import android.util.Log
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageButton
@@ -17,7 +18,7 @@ import androidx.cardview.widget.CardView
 import com.example.ios_registr.model.test
 
 
-class Test : AppCompatActivity() {
+class Test : AppCompatActivity(),OnClickListener {
 
     lateinit var question: TextView
     lateinit var group: RadioGroup
@@ -34,6 +35,7 @@ class Test : AppCompatActivity() {
     lateinit var linear:LinearLayout
     var status = true
     var list = mutableListOf<test>()
+    var index = 0
 
     @SuppressLint("MissingInflatedId", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +54,7 @@ class Test : AppCompatActivity() {
         again = findViewById(R.id.restart)
         correcans = findViewById(R.id.correctans)
         linear = findViewById(R.id.liner)
-        var index = 0
+
         list.add(test("1∙1", "1", "2", "3", "4", "", "1"))
         list.add(test("2∙2", "12", "4", "9", "13", "", "4"))
         list.add(test("3∙3", "5", "6", "17", "9", "", "9"))
@@ -193,9 +195,26 @@ class Test : AppCompatActivity() {
            btn.id = i
            btn.text = i.toString()
            linear.addView(btn)
+           btn.setOnClickListener(this)
        }
     }
-    fun but(btn:Button){
 
+
+    override fun onClick(p0: View?) {
+        var btn = findViewById<Button>(p0!!.id)
+        index = btn.text.toString().toInt()-1
+        group.clearCheck()
+        createTest(index)
+        check(index)
+        if (index == 0) {
+            prev.visibility = View.INVISIBLE
+        }else prev.visibility = View.VISIBLE
+        if (index != list.size-1){
+            finish.visibility = View.INVISIBLE
+            next.visibility = View.VISIBLE
+        }else{
+            finish.visibility = View.VISIBLE
+            next.visibility = View.INVISIBLE
+        }
     }
 }
