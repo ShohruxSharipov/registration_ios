@@ -9,6 +9,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
@@ -30,7 +31,7 @@ class Test : AppCompatActivity() {
     lateinit var card: CardView
     lateinit var again: ImageButton
     lateinit var correcans: TextView
-    lateinit var linear:View
+    lateinit var linear:LinearLayout
     var status = true
     var list = mutableListOf<test>()
 
@@ -56,7 +57,7 @@ class Test : AppCompatActivity() {
         list.add(test("2∙2", "12", "4", "9", "13", "", "4"))
         list.add(test("3∙3", "5", "6", "17", "9", "", "9"))
         list.add(test("4∙5", "10", "20", "30", "40", "", "20"))
-
+        createButton(list.size)
         createTest(index)
 
         finish.setOnClickListener {
@@ -186,13 +187,15 @@ class Test : AppCompatActivity() {
             status = true
         }
     }
-    fun createButton(view: View?){
-        for (i in list.indices-1){
-            var btn:Button = findViewById(view!!.id)
-            btn.text = (i+1).toString()
-
-
-        }
+    fun createButton(view: Int){
+       for (i in 1..view){
+           var btn = Button(this)
+           btn.id = i
+           btn.text = i.toString()
+           linear.addView(btn)
+       }
+    }
+    fun but(btn:Button){
 
     }
 }

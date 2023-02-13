@@ -43,23 +43,29 @@ class LogIn : AppCompatActivity() {
                 var str = cache.getString("users", "")
                 list = gson.fromJson(str, type)
 
-                for (i in list.indices) {
-                    if (list[i].log == username.text.toString() && list[i].pass == password.text.toString()) {
-                        var intent = Intent(this, Test::class.java)
-                        startActivity(intent)
-                        isok = true
+                if (!list.isEmpty()) {
+                    for (i in list.indices) {
+                        if (list[i].log == username.text.toString() && list[i].pass == password.text.toString()) {
+                            var intent = Intent(this, Test::class.java)
+                            startActivity(intent)
+                            isok = true
+                        }
                     }
-                }
-                if (!isok) {
-                    Toast.makeText(
-                        this,
-                        "Login yoki parol noto'g'ri kiritilgan!!",
-                        Toast.LENGTH_SHORT
-                    )
+                    if (!isok) {
+                        Toast.makeText(
+                            this,
+                            "Login yoki parol noto'g'ri kiritilgan!!",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }
+                } else {
+                    Toast.makeText(this, "Ma'lumotlar topilmadi !!!", Toast.LENGTH_SHORT)
                         .show()
                 }
+
             }
         }
-
     }
+
 }
