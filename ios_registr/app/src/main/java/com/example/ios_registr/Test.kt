@@ -36,6 +36,7 @@ class Test : AppCompatActivity(), OnClickListener {
     private lateinit var correcans: TextView
     private lateinit var linear: LinearLayout
     private var status = true
+    private var status_1 = false
     private var list = mutableListOf<test>()
     private var list_btn = mutableListOf<Button>()
     private var index = 0
@@ -58,10 +59,10 @@ class Test : AppCompatActivity(), OnClickListener {
         correcans = findViewById(R.id.correctans)
         linear = findViewById(R.id.liner)
 
-        list.add(test("1∙1", "1", "2", "3", "4", "", "1"))
-        list.add(test("2∙2", "12", "4", "9", "13", "", "4"))
-        list.add(test("3∙3", "5", "6", "17", "9", "", "9"))
-        list.add(test("4∙5", "10", "20", "30", "40", "", "20"))
+        list.add(test("vulnerable", "weak", "strong", "brave", "power", "", "weak"))
+        list.add(test("target", "dish", "quary", "absorb", "civil", "", "quary"))
+        list.add(test("comfort", "convinient", "blaze", "ease", "fault", "", "convinient"))
+        list.add(test("gain", "gesture", "grave", "innocent", "acquired", "", "acquired"))
         createButton(list.size)
         createTest(index)
 
@@ -88,6 +89,8 @@ class Test : AppCompatActivity(), OnClickListener {
             index = 0
             createTest(index)
             card.isEnabled = true
+            status_1 = true
+            color_btn()
         }
         answer1.setOnClickListener {
             var a = findViewById<RadioButton>(group.checkedRadioButtonId)
@@ -203,6 +206,7 @@ class Test : AppCompatActivity(), OnClickListener {
             btn.text = i.toString()
             linear.addView(btn)
             btn.setOnClickListener(this)
+            btn.setBackgroundResource(R.drawable.stroke)
             list_btn.add(btn)
         }
     }
@@ -229,8 +233,8 @@ class Test : AppCompatActivity(), OnClickListener {
     fun color_btn() {
         for (i in list.indices) {
             if (list[i].choosen.isNotEmpty()) {
-                list_btn[i].setBackgroundResource(R.drawable.blue_btn)
-            }
+                if (!status_1) list_btn[i].setBackgroundResource(R.drawable.blue_btn)
+            } else list_btn[i].setBackgroundResource(R.drawable.stroke)
         }
     }
 }
