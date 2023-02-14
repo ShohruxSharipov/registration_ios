@@ -1,6 +1,7 @@
 package com.example.ios_registr
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Layout
@@ -10,6 +11,7 @@ import android.view.View.OnClickListener
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
@@ -18,24 +20,25 @@ import androidx.cardview.widget.CardView
 import com.example.ios_registr.model.test
 
 
-class Test : AppCompatActivity(),OnClickListener {
+class Test : AppCompatActivity(), OnClickListener {
 
-    lateinit var question: TextView
-    lateinit var group: RadioGroup
-    lateinit var answer1: RadioButton
-    lateinit var answer2: RadioButton
-    lateinit var answer3: RadioButton
-    lateinit var answer4: RadioButton
-    lateinit var finish: Button
-    lateinit var next: Button
-    lateinit var prev: Button
-    lateinit var card: CardView
-    lateinit var again: ImageButton
-    lateinit var correcans: TextView
-    lateinit var linear:LinearLayout
-    var status = true
-    var list = mutableListOf<test>()
-    var index = 0
+    private lateinit var question: TextView
+    private lateinit var group: RadioGroup
+    private lateinit var answer1: RadioButton
+    private lateinit var answer2: RadioButton
+    private lateinit var answer3: RadioButton
+    private lateinit var answer4: RadioButton
+    private lateinit var finish: Button
+    private lateinit var next: Button
+    private lateinit var prev: Button
+    private lateinit var card: CardView
+    private lateinit var again: ImageView
+    private lateinit var correcans: TextView
+    private lateinit var linear: LinearLayout
+    private var status = true
+    private var list = mutableListOf<test>()
+    private var list_btn = mutableListOf<Button>()
+    private var index = 0
 
     @SuppressLint("MissingInflatedId", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -146,6 +149,7 @@ class Test : AppCompatActivity(),OnClickListener {
         answer4.text = list[i].answer4
     }
 
+
     fun check(i: Int) {
         if (!list[i].choosen.isEmpty()) {
             if (answer1.text == list[i].choosen) {
@@ -159,6 +163,7 @@ class Test : AppCompatActivity(),OnClickListener {
             }
             Log.d("TAG", "check: not empyt" + " ${list[i].choosen}")
         } else Log.d("TAG", "check: empyt")
+        color_btn()
     }
 
     fun onclick(view: View?, i: Int) {
@@ -176,45 +181,56 @@ class Test : AppCompatActivity(),OnClickListener {
         }
         return correctans
     }
-    fun gameover(){
+
+    fun gameover() {
         if (status) {
             finish.isEnabled = false
             prev.isEnabled = false
             group.isEnabled = false
             status = false
-        }else{
+        } else {
             finish.isEnabled = true
             prev.isEnabled = true
             group.isEnabled = true
             status = true
         }
     }
-    fun createButton(view: Int){
-       for (i in 1..view){
-           var btn = Button(this)
-           btn.id = i
-           btn.text = i.toString()
-           linear.addView(btn)
-           btn.setOnClickListener(this)
-       }
+
+    fun createButton(view: Int) {
+        for (i in 1..view) {
+            var btn = Button(this)
+            btn.id = i
+            btn.text = i.toString()
+            linear.addView(btn)
+            btn.setOnClickListener(this)
+            list_btn.add(btn)
+        }
     }
 
 
     override fun onClick(p0: View?) {
         var btn = findViewById<Button>(p0!!.id)
-        index = btn.text.toString().toInt()-1
+        index = btn.text.toString().toInt() - 1
         group.clearCheck()
         createTest(index)
         check(index)
         if (index == 0) {
             prev.visibility = View.INVISIBLE
-        }else prev.visibility = View.VISIBLE
-        if (index != list.size-1){
+        } else prev.visibility = View.VISIBLE
+        if (index != list.size - 1) {
             finish.visibility = View.INVISIBLE
             next.visibility = View.VISIBLE
-        }else{
+        } else {
             finish.visibility = View.VISIBLE
             next.visibility = View.INVISIBLE
+        }
+    }
+
+    fun color_btn() {
+        for (i in list.indices) {
+            if (list[i].choosen.isNotEmpty()) {
+                list_btn[i].setBackgroundResource(R.drawable.blue_btn)
+            }
         }
     }
 }
